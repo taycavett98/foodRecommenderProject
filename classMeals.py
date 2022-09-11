@@ -15,7 +15,7 @@ class Meals():
         print( "\t" + meal.veggies1 , meal.veggies2, meal.protein , meal.carb , meal.fat , meal.sauce , sep = ' + ')
         print("Enjoy!")
         print("*************************************")
-
+    
     veggies1 = ["power greens", "romaine"]
     veggies2 = [ "cauliflower", "brocolli", "b sprouts", "root blend", "mushrooms & onions", "asparagus"]
     protein = ["tuna", "sardines", "salmon", "bison", "beef", "chicken", "turkey", "eggs"]
@@ -43,6 +43,7 @@ def main():
     # ask user for any igredients
     # if none, continue to ask about what bowl they would want
     # if they have ingredients, allow them to store until they are done
+
     ingredientsOnHand = False
     print("Do you have any ingredients on hand ?")
     print("Enter 0 - No, 1 - Yes")
@@ -51,7 +52,8 @@ def main():
     if (userPantry == 0):
         emptyPantry()
     else:
-        fillPantry()
+        vegCount,carbCount,proCount,fatCount = fillPantry()
+    
     for i in range(0, len(inventory)):
         print (inventory[i])
     print("would you like to show meal options exclusive to what you have on hand ?")
@@ -60,7 +62,7 @@ def main():
     if(combine == 0):
         pass
     else:
-        pass
+        print("vegCount is" , vegCount)
     print("Goodbye")
 
 # TODO:add type validation check
@@ -94,50 +96,9 @@ def emptyPantry():
 # this list with other ingredient options then sould be easier to combine 
 # would have to combine from certain indexes like [vegIndex:carbIndex-1], then
 # append to the main list
-
-"""
-    # get user input for ingredients on hand
-    # create empty list
-    inventory = []
-    veg = []
-    carb = []
-    pro = []
-    fats = []
-    saucy = []
-    # get user inventory
-    n = int(input("how many ingredients do you have ? "))
-    print("Ok, you have " + n + " ingredients to enter.")
-    for i in range(0,n):
-    print("veggies first!")
-    print("how many veggies do you have on hand ? ")
-    vegCount = int(input())
-    print("enter your veggies ! ")
-    for v in range(0,vegCount):
-        veggies = input()
-        veg.append(veggies)
-    print("how many sources of carbs do you have on hand ?")
-    carbCount = int(input())
-    print ("enter your carb sources !")
-    for c in range(0,carbCount):
-        carbs = input()
-        carb.append(carbs)
-    print("how many proteins do you have on hand ? ")
-    proCount = int (input())
-    print("enter your protein !")
-    for p in range(0,proCount):
-        proteins = input()
-        pro.append(proteins)
-    print("how many fats do you have on hand ?")
-    print("enter your fats !")
-    fatCount = int(input())
-    for f in range(0,fatCount):
-        fat = input()
-        fats.append(fat)
-    
-    item = input()
-    inventory.append(item)
-    print(inventory)
-"""
+# ** issue : updating the global vegCount variable in this function to return to main
+# that way we known where to index from in inventory to produce meal suggestions
+# TODO: add check if user inputs 0 for macro, don't want to tell them to put it in still
 def fillPantry():
     print("veggies first!")
     print("how many veggies do you have on hand ? ")
@@ -164,5 +125,7 @@ def fillPantry():
     for f in range(proCount,proCount+fatCount):
         fat = input()
         inventory.append(fat)
+    return vegCount,carbCount,proCount,fatCount
+  
 
 main()
